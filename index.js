@@ -29,37 +29,6 @@ const User = mongoose.model('recipes', userSchema);
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
-// middleware for making log file 
-app.use((req, res, next) => {
-    if (req.method === 'GET' && req.path === '/api/users') {
-        fs.appendFile('log.txt', `${req.method} ${req.url} ${new Date().toISOString()}\n`, (err) => {
-            if (err) {
-                console.error('Failed to write to log file', err);
-            }
-        });
-    }
-    next();
-});
-
-
-
-
-
-
-// app.use((req,res,next)=>{
-//     if (req.query.isadmin){
-//         next()
-//     }else{
-//         res.status(401).json({status:'error',message:'Unauthorized'})
-//     }
-// })
-
-
-// cookies
-app.get('/setname',(req,res)=>{
-     res.cookie('name',req.query.name)
-     res.send('cookie set')
-})
 
 // routes
 app.get('/api/users', async (req, res) => {
